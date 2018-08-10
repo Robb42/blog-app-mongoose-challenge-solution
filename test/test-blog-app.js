@@ -58,10 +58,10 @@ describe('BlogPosts API', function () {
             return chai.request(app).get('/posts').then(function(_res) {
                 res = _res;
                 expect(res).to.have.status(200);
-                expect(res.body.blogposts).to.have.lengthOf.at.least(1);
-                return BlogPosts.count();
+                expect(res.body).to.have.lengthOf.at.least(1);
+                return BlogPost.count();
             }).then(function(count) {
-                expect(res.body.blogposts).to.have.lengthOf(count);
+                expect(res.body).to.have.lengthOf(count);
             });
         });
         
@@ -70,18 +70,17 @@ describe('BlogPosts API', function () {
             return chai.request(app).get('/posts').then(function(res) {
                 expect(res).to.have.status(200);
                 expect(res).to.be.json;
-                expect(res.body.blogposts).to.be.a('array');
-                expect(res.body.blogposts).to.have.lengthOf.at.least(1);
-                res.body.blogposts.forEach(function(blogpost) {
+                expect(res.body).to.be.a('array');
+                expect(res.body).to.have.lengthOf.at.least(1);
+                res.body.forEach(function(blogpost) {
                     expect(blogpost).to.be.a('object');
                     expect(blogpost).to.include.keys('author', 'content', 'title', 'id', 'created');
                 });
-                resBlogpost = res.body.blogposts[0];
+                resBlogpost = res.body[0];
                 return BlogPost.findById(resBlogpost.id);
             }).then(function(blogpost) {
                 expect(resBlogpost.id).to.equal(blogpost.id);
-                expect(resBlogpost.author.firstName).to.equal(blogpost.author.firstName);
-                expect(resBlogpost.author.lastName).to.equal(blogpost.author.lastName);
+                expect(resBlogpost.author).to.equal(`${blogpost.author.firstName} ${blogpost.author.lastName}`);
                 expect(resBlogpost.content).to.equal(blogpost.content);
                 expect(resBlogpost.title).to.equal(blogpost.title);
             });
@@ -105,14 +104,12 @@ describe('BlogPosts API', function () {
                 expect(res.body).to.include.keys('id', 'author', 'content', 'title', 'created');
                 expect(res.body.title).to.equal(newBlogpost.title);
                 expect(res.body.id).to.not.be.null;
-                expect(res.body.author.firstName).to.equal(newBlogpost.author.firstName);
-                expect(res.body.author.lastName).to.equal(newBlogpost.author.lastName);
+                expect(res.body.author).to.equal(`${newBlogpost.author.firstName} ${newBlogpost.author.lastName}`);
                 expect(res.body.content).to.equal(newBlogpost.content);
                 return BlogPost.findById(res.body.id);
             }).then (function(blogpost) {
                 expect(blogpost.title).to.equal(newBlogpost.title);
-                expect(blogpost.author.firstName).to.equal(newBlogpost.author.firstName);
-                expect(blogpost.author.lastname).to.equal(newBlogpost.author.lastName);
+                expect(`${blogpost.author.firstName} ${blogpost.author.lastName}`).to.equal(`${newBlogpost.author.firstName} ${newBlogpost.author.lastName}`);
                 expect(blogpost.content).to.equal(newBlogpost.content);
             });
         });
