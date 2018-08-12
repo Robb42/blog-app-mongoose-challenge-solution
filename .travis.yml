@@ -2,3 +2,10 @@ language: node_js
 node_js: node
 services:
 - mongodb
+deploy:
+  provider: heroku
+  api_key:
+    secure: KDp/1FD5jgr3kYC372SS9GgRfdCYgR4FyNu6GuyNth0w0TLBOin0rZkX0dm8T7olHelGTZfaPfKsXaXdqW88vGhe4V9HoujyJaBs1su4KuxgY9aGbYRDnNBV5UOBXzG8Z9HHkUsywgoGt0n2NVOuUnrLXJxQxjKENIvy8VhUaTWDFdFlqoelrsbk7+eYLLxnwbBcsE64flWmcJZMN5NzpZtYy3uiDgGKvKdudzaRBVqq2gvHYNogmGqA2EXVOftXJERymnMmGCvCeCfmj2WO+c6oJjZEbTYQeXsgr9k6kuWChd4wx6Zgi3aBUXSURRminis0Ne7cAjrooXkn7gNhFMn/D50w+V2me9KOeenEz2xlKZOX1deFiah+n6340cinCeJuXYh3HTCeos6C+Ndz8f/fMSicN4B+KkG8snwzt/WAQsqbpXHIXNDoiWII+7XjK/rau1tia8iWTfGxEPEVHGb1sdFDXoJv7+pXMp4odTAed5AOZieSyOOeyfFSVnRVhWsdHQIFrtNNkzHWz0TJpvVwL7Nz1XJPGXeYGHxJXhuk+0D+h04/lyu3MA2vl3X4V6wwl8Skfvy9fM+tqr9EJITRm2MY0JofK3swcgZpBhi1kMOK7nNsSYKo9O7QKBQyF9QXfbW6+vlOB39mOgSvUQBQfMreN4CceTtY5RfG9HE=
+  app: ancient-journey-31169
+  on:
+    repo: Robb42/blog-app-mongoose-challenge-solution
